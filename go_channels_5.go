@@ -3,8 +3,9 @@ package main
 import "fmt"
 
 func main() {
+	totalMessages := 100
 	comChannel := make(chan int)
-	go sender(comChannel)
+	go sender(comChannel, totalMessages)
 	reader(comChannel)
 }
 
@@ -14,8 +15,8 @@ func reader(comChannel chan int) {
 	}
 }
 
-func sender(channel chan int) {
-	for i := 0; i < 100; i++ {
+func sender(channel chan int, totalMsgs int) {
+	for i := 0; i < totalMsgs; i++ {
 		channel <- i
 	}
 	close(channel)
